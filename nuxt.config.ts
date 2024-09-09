@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-const appTitle = process.env.PREZ_APP_TITLE || 'OGC RAINBOW';
+const appTitle = process.env.NUXT_PUBLIC_APP_TITLE || 'OGC RAINBOW';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -16,14 +16,14 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: appTitle,
+      title: process.env.NUXT_PUBLIC_APP_TITLE,
     } 
   },
 
   runtimeConfig: {
     public: {
       prezApiEndpoint: process.env.NUXT_PUBLIC_PREZ_API_ENDPOINT,
-      appTitle: appTitle,
+      appTitle: 'OGC RAINBOW',
     }
   },
 
