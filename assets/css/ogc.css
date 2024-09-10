@@ -242,3 +242,42 @@
     U+FEFF,
     U+FFFD;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    p {
+        @apply mb-2;
+    }
+
+    h1, h2, h3 {
+        color: theme('colors.ogc-dark-blue');
+        @apply mb-[0.7rem] mt-1;
+
+        &:first-child {
+            @apply mt-0;
+        }
+    }
+
+    h1 {
+        @apply text-4xl;
+    }
+
+    h2 {
+        @apply text-3xl;
+    }
+
+    h3 {
+        @apply text-2xl;
+    }
+
+    ul {
+        @apply list-disc list-inside;
+
+        ul {
+            @apply pl-3;
+        }
+    }
+}

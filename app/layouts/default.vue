@@ -105,6 +105,9 @@ const socialLinks = [
             </a>
           </div>
         </div>
+        <div class="powered-by mt-3 text-sm">
+          The OGC RAINBOW is powered by <a class="font-bold" href="https://github.com/RDFLib/prez" target="_blank">Prez</a>
+        </div>
       </div>
     </footer>
   </div>
