@@ -13,9 +13,6 @@ const props = defineProps<Props>();
 <template>
     <Objects :term="props.term" :predicate="props.predicate" :objects="props.objects">
         <template #default>
-            <div v-if="props.predicate.value == 'http://purl.org/dc/terms/identifier'">
-                THIS IS MY STATUS {{ props.objects }}
-            </div>
         </template>
     </Objects>
 </template>
