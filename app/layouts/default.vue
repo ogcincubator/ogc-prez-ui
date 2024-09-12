@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import {useDynamicPages} from "~/composables/useDynamicPages";
+
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>()
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
 const menu = appConfig.menu;
-const expanded = ref(!!localStorage.getItem('expanded'));
+const expanded = ref(false);
+onBeforeMount(() => {
+  expanded.value = !!localStorage.getItem('expanded');
+});
 watch(expanded, val => localStorage.setItem('expanded', val && '1' || ''));
 const appTitle = runtimeConfig.public.appTitle;
 
@@ -14,6 +19,20 @@ const socialLinks = [
   {href: 'https://discord.gg/VsfzaU5qgs', img: 'discord.svg', alt: 'discord'},
   {href: 'https://ogcpublic.slack.com/', img: 'slack.svg', alt: 'slack'},
 ];
+
+const dynamicPages = useDynamicPages();
+const fullMenu = computed(() => {
+  if (!dynamicPages.value) {
+    return menu;
+  }
+  const items = menu.map(m => ({ label: dynamicPages.value!.find(p => p.path === m.url)?.title || m.label, url: m.url}));
+  for (const page of dynamicPages.value!) {
+    if (!items.find(i => i.url === page.path)) {
+      items.push({ label: page.title, url: page.path });
+    }
+  }
+  return items;
+});
 </script>
 <template>
   <div class="flex flex-col min-h-screen">
@@ -45,7 +64,7 @@ const socialLinks = [
 
     <div class="border-b">
       <nav class="container mx-auto px-4 py-4 hidden md:flex space-x-12 text-lg text-ogc-blue">
-        <nuxt-link v-for="{label, url} in menu" :to="url"
+        <nuxt-link v-for="{label, url} in fullMenu" :to="url"
                    class="border-b-[3px] border-transparent hover:border-ogc-blue">{{ label }}
         </nuxt-link>
       </nav>
@@ -62,7 +81,7 @@ const socialLinks = [
       </div>
     </slot>
 
-    <div class="container mx-auto flex-grow">
+    <div class="container mx-auto flex-grow" id="main-content">
 
       <div v-if="sidepanel" class="grid grid-cols-4 gap-4 px-4 py-4">
         <div :class="!expanded ? 'col-span-3 ... relative' : 'col-span-4 relative'">

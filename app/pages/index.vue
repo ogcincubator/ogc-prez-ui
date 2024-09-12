@@ -28,7 +28,7 @@
         The "alternate profiles" will provide a complete list of the available resources per definition.
       </p>
       <p>
-        See the <nuxt-link to="/about" class="border-b-[3px] border-ogc-blue">about page</nuxt-link> page for more information on OGC
+        See the <nuxt-link to="/about">about page</nuxt-link> page for more information on OGC
         RAINBOW.
       </p>
     </template>

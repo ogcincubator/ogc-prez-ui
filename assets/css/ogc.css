@@ -254,7 +254,7 @@
 
     h1, h2, h3 {
         color: theme('colors.ogc-dark-blue');
-        @apply mb-[0.7rem] mt-1;
+        @apply mb-[0.7rem] mt-[1rem];
 
         &:first-child {
             @apply mt-0;
@@ -273,11 +273,23 @@
         @apply text-2xl;
     }
 
-    ul {
-        @apply list-disc list-inside;
+    ul, ol {
+        @apply list-outside pl-4 ml-4 mb-2;
 
-        ul {
-            @apply pl-3;
+        ul, ol {
+            @apply mb-0;
         }
+    }
+
+    ul {
+        @apply list-disc;
+    }
+
+    ol {
+        @apply list-decimal;
+    }
+
+    #main-content a {
+        @apply underline decoration-dotted;
     }
 }

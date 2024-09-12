@@ -4,10 +4,8 @@ import {type TocItem} from '../lib/ogc/toc';
 import TableOfContentsList from "~/components/TableOfContentsList.vue";
 
 const props = defineProps({
-  element: HTMLElement,
+  element: Object,
 });
-
-const element = props.element;
 
 const tocItems: Array<TocItem> = [];
 
@@ -20,9 +18,9 @@ watchEffect(() => {
       parentItemList: Array<TocItem> | null = null,
       lastItem: TocItem | null = null;
 
-  const headings = props.element!.querySelectorAll('h1, h2, h3');
+  const headings: Array<HTMLElement> = props.element!.querySelectorAll('h1, h2, h3');
   for (const heading of headings) {
-    if (!heading.textContent) {
+    if (!heading.textContent || 'skipToc' in heading.dataset) {
       continue;
     }
     const newItem: TocItem = {
@@ -35,7 +33,7 @@ watchEffect(() => {
       lastItem!.children = [];
       parentItemList = currentItemList;
       currentItemList = lastItem!.children;
-    } else if (cmp < 0) {
+    } else if (cmp < 0 && parentItemList) {
       currentItemList = parentItemList!;
     }
     currentItemList.push(newItem);
