@@ -19,21 +19,22 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const pagesDir = config.dynamicPagesPath;
   if (import.meta.server && pagesDir) {
 
-    const path = require('path');
-    const fs = require('fs');
-    const fm = require('front-matter');
+    const path = await import('path');
+    const fs = await import('fs');
+    const fm = await import('front-matter');
 
     const pages: Array<DynamicPageAttributes> = [];
     let filenames: Array<string>;
     try {
-      filenames = await fs.promises.readdir(pagesDir);
+      filenames = await fs.promises.readdir(pagesDir.toString());
+      filenames.sort();
       for (const filename of filenames) {
-        const fullPath = path.join(pagesDir, filename);
+        const fullPath = path.join(pagesDir.toString(), filename);
         if (!filename.match(/\.(html|md)$/) || !fs.lstatSync(fullPath).isFile()) {
           continue;
         }
         const data = await fs.promises.readFile(fullPath, 'utf-8');
-        const contents: FrontMatterResult<DynamicPageAttributes> = fm(data);
+        const contents: FrontMatterResult<DynamicPageAttributes> = fm.default(data, {allowUnsafe: true});
 
         if (contents.attributes.title) {
           if (!contents.attributes.path) {
