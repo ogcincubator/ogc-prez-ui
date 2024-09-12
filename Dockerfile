@@ -1,7 +1,6 @@
 FROM node:lts-alpine AS builder
 
 ENV PATH /app/node_modules/.bin:$PATH
-ENV PREZ_CORE_EXTENDS=/ogc-prez-ui
 ARG PREZ_UI_BASE="https://github.com/RDFLib/prez-ui.git"
 ARG PREZ_UI_BASE_BRANCH="hjohns/next/alpha"
 
@@ -16,12 +15,12 @@ COPY . /ogc-prez-ui/
 
 WORKDIR /ogc-prez-ui/
 
-RUN pnpm i
+RUN PREZ_CORE_EXTENDS= PREZ_LAYER_EXTENDS=/prez-ui/packages/core pnpm i
 
 WORKDIR /prez-ui/packages/core
 
 RUN pnpm i && \
-    pnpm dotenv -e .env -- nuxi build
+    SSR_ENABLED=1 PREZ_CORE_EXTENDS=/ogc-prez-ui pnpm dotenv -e .env -- nuxi build
 
 FROM node:lts-alpine as prod
 
