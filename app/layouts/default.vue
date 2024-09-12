@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useDynamicPages} from "~/composables/useDynamicPages";
+import type {DynamicPageAttributes} from "~/plugins/dynamic-pages";
 
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>()
 const appConfig = useAppConfig();
@@ -25,13 +26,19 @@ const fullMenu = computed(() => {
   if (!dynamicPages.value) {
     return menu;
   }
-  const items = menu.map(m => ({ label: dynamicPages.value!.find(p => p.path === m.url)?.title || m.label, url: m.url}));
+  const items = menu.map(m => ({label: dynamicPages.value!.find(p => p.path === m.url)?.title || m.label, url: m.url}));
   for (const page of dynamicPages.value!) {
-    if (!items.find(i => i.url === page.path)) {
-      items.push({ label: page.title, url: page.path });
+    if (page.navigationMenu === 'main' && !items.find(i => i.url === page.path)) {
+      items.push({label: page.title, url: page.path});
     }
   }
   return items;
+});
+const topMenu = computed(() => {
+  if (!dynamicPages.value) {
+    return [];
+  }
+  return dynamicPages.value.filter(p => p.navigationMenu === 'top');
 });
 </script>
 <template>
@@ -48,14 +55,12 @@ const fullMenu = computed(() => {
         </nuxt-link>
 
         <!-- Navigation -->
-        <nav v-if="false" class="space-x-4 text-right">
-          <nuxt-link to="/services"
-                     class="hover:text-gray-400 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bg-orange-500 after:bottom-0 after:left-0 after:transition-transform after:duration-300 after:ease-in-out hover:after:scale-x-100">
-            Privacy
-          </nuxt-link>
-          <nuxt-link to="/contact"
-                     class="hover:text-gray-400 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bg-orange-500 after:bottom-0 after:left-0 after:transition-transform after:duration-300 after:ease-in-out hover:after:scale-x-100">
-            Contact
+        <nav v-if="topMenu.length" class="space-x-4 text-right">
+          <nuxt-link
+              v-for="page of topMenu"
+              :to="page.path"
+              class="hover:text-gray-400 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[2px] after:bg-orange-500 after:bottom-0 after:left-0 after:transition-transform after:duration-300 after:ease-in-out hover:after:scale-x-100">
+            {{ page.title }}
           </nuxt-link>
         </nav>
 
@@ -125,7 +130,8 @@ const fullMenu = computed(() => {
           </div>
         </div>
         <div class="powered-by mt-3 text-sm">
-          The OGC RAINBOW is powered by <a class="font-bold" href="https://github.com/RDFLib/prez" target="_blank">Prez</a>
+          The OGC RAINBOW is powered by <a class="font-bold" href="https://github.com/RDFLib/prez"
+                                           target="_blank">Prez</a>
         </div>
       </div>
     </footer>
