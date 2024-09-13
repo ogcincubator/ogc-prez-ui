@@ -3,6 +3,7 @@ import DynamicPage from "../components/DynamicPage.vue";
 import {marked} from "marked";
 import {useDynamicPages} from "~/composables/useDynamicPages";
 import type {FrontMatterResult} from "front-matter";
+import mermaid from "mermaid";
 
 export interface DynamicPageAttributes {
   readonly toc?: boolean;
@@ -11,6 +12,13 @@ export interface DynamicPageAttributes {
   html: string;
   path: string;
 }
+
+marked.use({
+  renderer: {
+    code: (code) =>
+      code.lang === 'mermaid' ? `<pre class="mermaid">${code.text}</pre>` : `<pre>${code.text}</pre>`
+  },
+});
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const config = useRuntimeConfig();
@@ -76,4 +84,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       });
     })
   }
+
+  if (import.meta.client) {
+    console.log('Initializing mermaid');
+    mermaid.initialize({
+      startOnLoad: false,
+    });
+  }
+
 })

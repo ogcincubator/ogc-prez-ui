@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import mermaid from "mermaid";
+
 const props = defineProps({
   html: String,
   toc: {
@@ -6,7 +8,17 @@ const props = defineProps({
     default: false,
   },
 });
-const mainContent = ref();
+const mainContent = ref<Element>();
+
+if (import.meta.client) {
+  watchEffect(() => {
+    if (mainContent.value) {
+      mermaid.run({
+        nodes: mainContent.value!.querySelectorAll('pre.mermaid'),
+      });
+    }
+  });
+}
 </script>
 <template>
   <NuxtLayout contentonly>
