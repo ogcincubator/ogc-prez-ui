@@ -8,9 +8,11 @@ const runtimeConfig = useRuntimeConfig();
 const menu = appConfig.menu;
 const expanded = ref(false);
 onBeforeMount(() => {
-  expanded.value = !!localStorage.getItem('expanded');
+  if (typeof localStorage !== "undefined") {
+    expanded.value = !!localStorage.getItem('expanded');
+    watch(expanded, val => localStorage.setItem('expanded', val && '1' || ''));
+  }
 });
-watch(expanded, val => localStorage.setItem('expanded', val && '1' || ''));
 const appTitle = runtimeConfig.public.appTitle;
 
 const socialLinks = [
