@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import {useDynamicPages} from "~/composables/useDynamicPages";
-import type {DynamicPageAttributes} from "~/plugins/dynamic-pages";
 
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>()
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
 const menu = appConfig.menu;
 const expanded = ref(false);
+const showDebugPanel = ref(false);
+
 onBeforeMount(() => {
-  if (typeof localStorage !== "undefined") {
+  if (typeof localStorage !== 'undefined') {
     expanded.value = !!localStorage.getItem('expanded');
+    showDebugPanel.value = runtimeConfig.public.prezDebug && !!localStorage.getItem('debug');
     watch(expanded, val => localStorage.setItem('expanded', val && '1' || ''));
+    watch(showDebugPanel, val => localStorage.setItem('debug', val && '1' || ''));
   }
 });
 const appTitle = runtimeConfig.public.appTitle;
@@ -74,6 +77,10 @@ const topMenu = computed(() => {
         <nuxt-link v-for="{label, url} in fullMenu" :to="url"
                    class="border-b-[3px] border-transparent hover:border-ogc-blue">{{ label }}
         </nuxt-link>
+        <div v-if="runtimeConfig.public.prezDebug" class="!ml-auto">
+            <div v-if="showDebugPanel"><i title="Toggle debug off" class="hover:cursor-pointer hover:text-gray-500 pi pi-cog text-blue-400" @click="()=>{ showDebugPanel = !showDebugPanel }"></i></div>
+            <i v-else title="Toggle debug on" class="hover:cursor-pointer hover:text-gray-500 pi pi-cog text-gray-300" @click="()=>{ showDebugPanel = !showDebugPanel }"></i>
+        </div>
       </nav>
     </div>
 
@@ -84,9 +91,17 @@ const topMenu = computed(() => {
           <div class="text-3xl pb-7 text-ogc-dark-blue text-[40px] font-bold">
             <slot name="header-text"/>
           </div>
+          <div v-if="showDebugPanel" class="m-2 bg-gray-200 rounded-lg text-[12px] leading-[12px]">
+              <slot name="debug" />
+          </div>
         </div>
       </div>
     </slot>
+    <div v-else-if="showDebugPanel" class="bg-gray-100">
+        <div class="container px-4 py-4 mx-auto">
+            <slot name="debug" />
+        </div>
+    </div>
 
     <div class="container mx-auto flex-grow" id="main-content">
 
