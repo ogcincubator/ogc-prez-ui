@@ -1,6 +1,12 @@
 name: Build Docker image
 on:
   workflow_dispatch:
+    inputs:
+      disableCache:
+        description: Disable cache
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - master
@@ -48,5 +54,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: ${{ inputs.disableCache && '' || 'type=gha' }}
+          cache-to: ${{ inputs.disableCache && '' || 'type=gha,mode=max' }}
