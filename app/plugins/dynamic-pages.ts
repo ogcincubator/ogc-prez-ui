@@ -26,6 +26,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   const pagesDir = config.dynamicPagesPath;
   if (import.meta.server && pagesDir) {
+    console.log(`Dynamic pages will be loaded from ${pagesDir}`);
 
     const path = await import('path');
     const fs = await import('fs');
@@ -41,6 +42,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         if (!filename.match(/\.(html|md)$/) || !fs.lstatSync(fullPath).isFile()) {
           continue;
         }
+        console.log(`Loading dynamic page from ${filename}`);
         const data = await fs.promises.readFile(fullPath, 'utf-8');
         const contents: FrontMatterResult<DynamicPageAttributes> = fm.default(data, {allowUnsafe: true});
 
@@ -62,6 +64,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     } catch (e) {
       console.error('Error loading dynamic pages', e);
     }
+  } else if (import.meta.server && !pagesDir) {
+    console.log('Dynamic pages are not configured');
   }
 
   const existingRoutes = Object.fromEntries(router.getRoutes()
