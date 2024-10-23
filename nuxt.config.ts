@@ -27,7 +27,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@primevue/nuxt-module',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@ogc/nuxt3-dynamic-pages-module',
   ],
 
   runtimeConfig: {

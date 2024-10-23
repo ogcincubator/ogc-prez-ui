@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useDynamicPages} from "~/composables/useDynamicPages";
+import { useDynamicPages } from '#imports';
 
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>()
 const appConfig = useAppConfig();
@@ -28,11 +28,11 @@ const socialLinks = [
 
 const dynamicPages = useDynamicPages();
 const fullMenu = computed(() => {
-  if (!dynamicPages.value) {
+  if (!dynamicPages.length) {
     return menu;
   }
-  const items = menu.map(m => ({label: dynamicPages.value!.find(p => p.path === m.url)?.title || m.label, url: m.url}));
-  for (const page of dynamicPages.value!) {
+  const items = menu.map(m => ({label: dynamicPages.find(p => p.path === m.url)?.title || m.label, url: m.url}));
+  for (const page of dynamicPages) {
     if (page.navigationMenu === 'main' && !items.find(i => i.url === page.path)) {
       items.push({label: page.title, url: page.path});
     }
@@ -40,10 +40,10 @@ const fullMenu = computed(() => {
   return items;
 });
 const topMenu = computed(() => {
-  if (!dynamicPages.value) {
+  if (!dynamicPages.length) {
     return [];
   }
-  return dynamicPages.value.filter(p => p.navigationMenu === 'top');
+  return dynamicPages.filter(p => p.navigationMenu === 'top');
 });
 </script>
 <template>
