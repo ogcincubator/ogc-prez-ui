@@ -1,6 +1,8 @@
 import type {DynamicPageAttributes, PublicDynamicPageAttributes} from "~/lib/dynamicPages";
 import {watchEffect} from "vue";
 
+const pagesCache = new Map<string, DynamicPageAttributes>();
+
 export const useDynamicPages = (): Ref<PublicDynamicPageAttributes[]> => useState<PublicDynamicPageAttributes[]>('dynamicPages', () => []);
 export const useGetDynamicPage = (path: Ref<string> | string) => {
   const fullPage = ref();
@@ -12,6 +14,12 @@ export const useGetDynamicPage = (path: Ref<string> | string) => {
       if (pathValue == '/') {
         pathValue = '/_';
       }
+      error.value = null;
+      const cachedPage = pagesCache.get(pathValue);
+      if (cachedPage) {
+        fullPage.value = cachedPage;
+        return;
+      }
       loading.value = true;
       try {
         const {data, error: err} = await useFetch(`/api/dynamic-pages${pathValue}`);
@@ -20,6 +28,7 @@ export const useGetDynamicPage = (path: Ref<string> | string) => {
         }
         if (data?.value) {
           fullPage.value = data.value;
+          pagesCache.set(pathValue, fullPage.value);
         }
       } finally {
         loading.value = false;
