@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useDynamicPages } from '#imports';
-
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>()
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
@@ -26,7 +24,7 @@ const socialLinks = [
   {href: 'https://ogcpublic.slack.com/', img: 'slack.svg', alt: 'slack'},
 ];
 
-const dynamicPages = useDynamicPages();
+const dynamicPages = toValue(useDynamicPages());
 const fullMenu = computed(() => {
   if (!dynamicPages.length) {
     return menu;

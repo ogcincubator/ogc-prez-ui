@@ -10,7 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@ogc/nuxt3-dynamic-pages-module": "github:ogcincubator/nuxt3-dynamic-pages-module",
     "@primevue/themes": "^4.0.4",
     "front-matter": "^4.0.2",
     "marked": "^14.1.2",
