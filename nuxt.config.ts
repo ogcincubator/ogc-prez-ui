@@ -21,8 +21,12 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: process.env.NUXT_PUBLIC_APP_TITLE,
-    }
+      title: appTitle,
+      link: [
+        { rel: 'icon', href: 'https://www.ogc.org/wp-content/uploads/2022/06/favicon_2-3.png' },
+        { rel: 'apple-touch-icon', href: 'https://www.ogc.org/wp-content/uploads/2022/06/favicon_2-3.png' },
+      ],
+    },
   },
 
   modules: [

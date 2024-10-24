@@ -9,10 +9,8 @@ export default defineNuxtPlugin({
       const dynamicPages = await useFetch<PublicDynamicPageAttributes[]>('/api/dynamic-pages');
       pages = dynamicPages.data.value || [];
       useDynamicPages().value = pages;
-      console.log(`Server - loaded ${pages.length} pages`);
     } else {
       pages = useDynamicPages().value;
-      console.log(`Client - loaded ${pages.length} pages`);
     }
     const router = useRouter();
     const existingRoutes = Object.fromEntries(router.getRoutes()
