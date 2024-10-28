@@ -54,6 +54,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          no-cache: ${{ inputs.disableCache }}
+          no-cache: ${{ inputs.disableCache || false }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
