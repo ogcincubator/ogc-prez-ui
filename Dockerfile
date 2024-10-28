@@ -3,8 +3,7 @@ FROM node:lts-alpine AS builder
 ENV PATH /app/node_modules/.bin:$PATH
 #ARG PREZ_UI_BASE="https://github.com/RDFLib/prez-ui.git"
 ARG PREZ_UI_BASE="https://github.com/avillar/prez-ui.git"
-#ARG PREZ_UI_BASE_BRANCH="hjohns/next/alpha"
-ARG PREZ_UI_BASE_BRANCH="layout-ssr-fixes"
+ARG PREZ_UI_BASE_BRANCH="hjohns/next/alpha"
 
 RUN apk update && apk add git && npm i -g pnpm && \
     git clone -b "${PREZ_UI_BASE_BRANCH}" "${PREZ_UI_BASE}" /prez-ui
