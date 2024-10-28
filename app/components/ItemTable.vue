@@ -29,8 +29,14 @@ const hideSingleObjectPredicates = [
     'http://www.w3.org/2004/02/skos/core#prefLabel',
     'http://www.w3.org/2000/01/rdf-schema#label',
 ];
+const hidePredicates = [
+    'http://www.opengis.net/ogc-na#targetGraph',
+];
 const filteredFields = computed(() => {
   return fields.value.filter(f => {
+    if (hidePredicates.includes(f.predicate.value)) {
+      return false;
+    }
     if (f.objects.length === 1 && hideSingleObjectPredicates.includes(f.predicate.value)) {
       return false;
     }
