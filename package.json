@@ -21,7 +21,8 @@
     "primeicons": "^7.0.0",
     "primevue": "^4.0.4",
     "tailwindcss": "^3.4.9",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-dompurify-html": "^5.1.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",

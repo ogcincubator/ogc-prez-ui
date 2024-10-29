@@ -44,6 +44,9 @@ importers:
       vue:
         specifier: latest
         version: 3.4.37(typescript@5.5.4)
+      vue-dompurify-html:
+        specifier: ^5.1.0
+        version: 5.1.0(vue@3.4.37(typescript@5.5.4))
     devDependencies:
       '@nuxtjs/tailwindcss':
         specifier: ^6.12.1
@@ -4446,6 +4449,11 @@ packages:
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
+
+  vue-dompurify-html@5.1.0:
+    resolution: {integrity: sha512-616o2/PBdOLM2bwlRWLdzeEC9NerLkwiudqNgaIJ5vBQWXec+u7Kuzh+45DtQQrids67s4pHnTnJZLVfyPMxbA==}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-router@4.4.3:
     resolution: {integrity: sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==}
@@ -9492,6 +9500,11 @@ snapshots:
       ufo: 1.5.4
 
   vue-devtools-stub@0.1.0: {}
+
+  vue-dompurify-html@5.1.0(vue@3.4.37(typescript@5.5.4)):
+    dependencies:
+      dompurify: 3.1.7
+      vue: 3.4.37(typescript@5.5.4)
 
   vue-router@4.4.3(vue@3.4.37(typescript@5.5.4)):
     dependencies:
