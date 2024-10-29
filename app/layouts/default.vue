@@ -155,19 +155,19 @@ const menuOpen = ref(false);
 
     <footer class="bg-ogc-dark-blue text-white pt-5 px-[4em] pb-[4em]">
 
-      <div class="flex justify-center space-x-2 mb-10">
-        <div class="follow-us md:w-1/4">
+      <div class="flex flex-col md:flex-row justify-center space-x-2 mb-10">
+        <div class="follow-us md:w-1/4 w-full order-2 md:order-1 my-5 md:my-0">
           <div class="font-bold text-ogc-blue mt-2 mb-3 text-xs uppercase">Follow us</div>
-          <div class="social-links space-x-1 flex">
+          <div class="social-links space-x-2 flex">
             <a v-for="link of socialLinks" :href="link.href" target="_blank"
-               class="mx-1.5 size-10 rounded-full flex bg-white text-ogc-dark-blue hover:text-white hover:bg-ogc-light-blue transition-colors justify-center"
+               class="size-10 rounded-full flex bg-white text-ogc-dark-blue hover:text-white hover:bg-ogc-light-blue transition-colors justify-center"
                v-html="logos[link.img]"
             >
             </a>
           </div>
         </div>
 
-        <div class="where-we-are md:w-1/4">
+        <div class="where-we-are md:w-1/4 w-full order-1 md:order-2 my-5 md:my-0">
           <div class="font-bold text-ogc-blue mt-2 mb-3 text-xs uppercase">Where we are</div>
           <div class="address">
             2300 Wilson Blvd. Suite 700-1026<br/>
