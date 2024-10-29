@@ -131,7 +131,7 @@ const menuOpen = ref(false);
       </div>
     </div>
 
-    <div class="container mx-auto flex-grow" id="main-content">
+    <div class="container mx-auto flex-grow overflow-scroll" id="main-content">
 
       <div v-if="sidepanel" class="grid grid-cols-4 gap-4 px-4 py-4">
         <div :class="!expanded ? 'col-span-3 ... relative' : 'col-span-4 relative'">
