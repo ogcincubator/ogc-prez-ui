@@ -16,9 +16,9 @@ const { fullPage, loading, error } = useGetDynamicPage(computed(() => props.page
 if (import.meta.client) {
   watchEffect(() => {
     if (mainContent.value && fullPage.value) {
-      mermaid.run({
+      nextTick(() => mermaid.run({
         nodes: mainContent.value!.querySelectorAll('pre.mermaid'),
-      });
+      }));
     }
   });
 }
