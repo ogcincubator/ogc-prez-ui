@@ -6,10 +6,10 @@ const menu = appConfig.menu;
 const expanded = ref(false);
 const showDebugPanel = ref(false);
 
-const logosGlob = import.meta.glob('../../assets/img/social/*.svg', { eager: true, query: '?raw' });
+const logosGlob = import.meta.glob('../../assets/img/social/*.svg', {eager: true, query: '?raw'});
 const logos = Object.fromEntries(
-  Object.entries(logosGlob).map(([key, value]) => [key.replace(/.*\//, ''), (value as any).default])
-)
+    Object.entries(logosGlob).map(([key, value]) => [key.replace(/.*\//, ''), (value as any).default]),
+);
 
 onBeforeMount(() => {
   if (typeof localStorage !== 'undefined') {
@@ -50,27 +50,35 @@ const topMenu = computed(() => {
 });
 
 const year = new Date().getFullYear();
+
+const menuOpen = ref(false);
 </script>
 <template>
   <div class="flex flex-col min-h-screen">
 
     <!-- Header -->
-    <header class="bg-white shadow-md text-ogc-blue py-10">
-      <div class="container mx-auto px-4 h-full flex justify-between items-center mb-4">
+    <header class="bg-white shadow-md text-ogc-blue py-5 md:py-10 flex flex-col">
+      <div class="container mx-auto px-4 h-full flex justify-between items-center md:mb-4 order-2 md:order-1 mt-4 md:mt-0">
 
         <!-- Logo -->
-        <nuxt-link to="/" class="text-4xl hidden md:flex flex-1 items-center text-white">
-          <img class="h-[50px] inline-block mr-3 filter brightness-0 invert" src="../../assets/img/ogc-logo.svg"
+        <nuxt-link to="/" class="text-4xl flex flex-col md:flex-row flex-1 items-start md:items-center text-white">
+          <img class="h-[50px] hidden md:inline-block mr-3 filter brightness-0 invert md:inline-block" src="../../assets/img/ogc-logo.svg"
                alt="Open Geospatial Consortium">
           <span>{{ appTitle }}</span>
         </nuxt-link>
 
       </div>
 
-      <div class="container mx-auto menu-container flex bg-white px-6 justify-between align-middle">
-        <nav class="container py-4 hidden md:flex space-x-12 text-lg text-ogc-blue flex-1">
+      <div
+        class="container mx-auto menu-container flex bg-white px-6 justify-between align-middle w-11/12 flex-col md:flex-row pb-3 md:pb-0 order-1 md:order-2"
+      >
+        <nav
+          class="container py-4 md:flex flex-col md:flex-row md:space-x-12 text-lg text-ogc-blue flex-1 order-2 md:order-1 ml-5 md:ml-0"
+          :class="{ hidden: !menuOpen, flex: menuOpen }"
+        >
           <nuxt-link v-for="{label, url} in fullMenu" :to="url"
-                     class="border-b-[3px] border-transparent hover:text-ogc-light-blue font-bold transition-colors">{{ label }}
+                     class="border-b-[3px] border-transparent hover:text-ogc-light-blue font-bold transition-colors">
+            {{ label }}
           </nuxt-link>
           <div v-if="runtimeConfig.public.prezDebug" class="!ml-auto">
             <div v-if="showDebugPanel"><i title="Toggle debug off"
@@ -81,13 +89,25 @@ const year = new Date().getFullYear();
           </div>
         </nav>
 
-        <nav v-if="topMenu.length" class="space-x-4 text-right flex-1 flex justify-end items-center">
+        <nav class="top-menu space-x-4 text-right flex-1 flex justify-end items-stretch md:items-center md:order-2 order-1 pt-3 md:p-0 text-2xl md:text-base">
+          <nuxt-link to="/" class="w-[1em] md:hidden">
+            <svg class="h-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 46" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M18.173 32.528v12.596L.001 34.633 0 13.638 18.172 24.13v4.198l-3.627-2.093-1.818-1.05-9.09-5.248v12.596l10.908 6.299v-4.2l-5.454-3.148v-4.199l9.082 5.243ZM19.993 16.795l-10.91-6.298 10.91-6.299 10.908 6.3-1.817 1.049-9.091 5.248Zm0-16.795L1.81 10.497l18.181 10.497 18.182-10.497L19.993 0ZM29.1 24.08l3.637-2.1 3.636-2.1v4.2L40 21.986v-8.35l-18.173 10.49v4.152h.001v16.796l-.01-.005v.058L40 34.63v-8.446l-3.627 2.095v4.198l-10.91 6.299.001-12.597 3.636-2.1Z"></path>
+            </svg>
+          </nuxt-link>
+          <span class="flex-1"></span>
           <nuxt-link
               v-for="page of topMenu"
               :to="page.path"
               class="text-ogc-dark-blue hover:text-ogc-blue after:content-[''] after:absolute transition-colors">
             {{ page.title }}
           </nuxt-link>
+          <a href="#" @click.prevent="menuOpen = !menuOpen" class="md:hidden">
+            <i
+              class="pi text-ogc-dark-blue text-2xl"
+              :class="{ 'pi-bars': !menuOpen, 'pi-times': menuOpen }"
+            ></i>
+          </a>
         </nav>
       </div>
     </header>
