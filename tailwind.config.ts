@@ -6,8 +6,9 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        'ogc-blue': '#0476C8',
+        'ogc-blue': '#0580da',
         'ogc-dark-blue': '#071F51',
+        'ogc-light-blue': '#00B1FF',
       },
     },
     fontFamily: {
