@@ -11,7 +11,7 @@ export default <Partial<Config>>{
       },
     },
     fontFamily: {
-      sans: ['Mont', ...defaultTheme.fontFamily.sans],
+      sans: ['Noto Sans', ...defaultTheme.fontFamily.sans],
     }
   },
 }
