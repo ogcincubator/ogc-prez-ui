@@ -133,17 +133,17 @@ const menuOpen = ref(false);
 
     <div class="container mx-auto flex-grow overflow-scroll" id="main-content">
 
-      <div v-if="sidepanel" class="grid grid-cols-4 gap-4 px-4 py-4">
+      <div v-if="sidepanel" class="md:grid grid-cols-4 gap-4 px-4 py-4">
         <div :class="!expanded ? 'col-span-3 ... relative' : 'col-span-4 relative'">
           <slot/>
-          <div class="absolute right-0 top-[-5px] pointer-events-auto" @click="()=>{ expanded = !expanded }">
+          <div class="absolute right-0 top-[-5px] pointer-events-auto hidden md:block" @click="()=>{ expanded = !expanded }">
             <i v-if="expanded" title="Show sidepanel"
                class="pi pi-angle-double-left text-xs p-[4px] hover:cursor-pointer hover:bg-gray-200 hover:rounded-full"/>
             <i v-else title="Expand and hide sidepanel"
                class="pi pi-angle-double-right text-xs p-[4px] hover:cursor-pointer hover:bg-gray-200 hover:rounded-full"/>
           </div>
         </div>
-        <div v-if="!expanded" class="...">
+        <div v-if="!expanded" class="... mt-4 md:mt-0">
           <slot name="sidepanel"></slot>
         </div>
       </div>
