@@ -1,17 +1,16 @@
 <script lang="ts" setup>
-import ItemTable from '@/base/components/Objects.vue';
+import ItemTable from '@/base/components/ItemTable.vue';
 import DataTable from 'primevue/datatable';
 
 import {type PrezFocusNode, type PrezProperty, type PrezTerm, type PrezNodeList} from '@/base/lib';
 
 interface Props {
   /** optional, fields in order to display */
-  fields?: PrezNodeList[];
+  // fields?: PrezNodeList[];
 
   /** parent term or root focus node */
   term: PrezTerm;
 }
-
 
 const props = defineProps<Props>();
 const term = props.term as PrezFocusNode;
