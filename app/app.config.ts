@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  menu: () => [
+  ogcMenu: [
     {"label": "Home", "url": "/"},
     {"label": "Browse", "url": "/catalogs"},
     {"label": "Search", "url": "/search"},

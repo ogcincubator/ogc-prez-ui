@@ -2,7 +2,7 @@
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>();
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
-const menu = appConfig.menu;
+const menu = appConfig.ogcMenu;
 const expanded = ref(false);
 const showDebugPanel = ref(false);
 
