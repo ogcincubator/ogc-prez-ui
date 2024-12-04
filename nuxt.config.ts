@@ -5,14 +5,14 @@ import type {ModuleOptions} from "@nuxtjs/tailwindcss";
 
 const appTitle = process.env.NUXT_PUBLIC_APP_TITLE || 'OGC RAINBOW';
 
-const currentDir = dirname(fileURLToPath(import.meta.url))
+const currentDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: {enabled: true},
 
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
 
   extends:
@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     public: {
       prezApiEndpoint: process.env.NUXT_PUBLIC_PREZ_API_ENDPOINT,
       appTitle: appTitle,
-    }
+    },
   },
 
   css: [

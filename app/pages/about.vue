@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import TableOfContents from "~/components/dynamicPages/TableOfContents.vue";
+
 const mainContent = ref();
 
 </script>
