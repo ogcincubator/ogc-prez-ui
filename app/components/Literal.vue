@@ -128,20 +128,20 @@ const htmlClass = 'no-tailwind' + (props.class ? ' ' + props.class : '');
         </template>
         <!-- Full output -->
         <span v-else-if="props?.term?.value" class="prezui-literal">
-            <span class="prezui-text">
+            <span class="prezui-text" :class="{'prezui-text-long': term.value?.toString?.()?.length > 100}">
                 <slot name="text" :term="term" :text="term.value">
-                    <span v-if="isMarkdown" v-dompurify-html="renderedMarkdownContent"></span>
-                    <span :class="htmlClass" v-else-if="isMathMl" v-dompurify-html:mathml="term.value"></span>
-                    <span v-else-if="isHtml" :class="htmlClass" v-dompurify-html="term.value"></span>
-                    <span v-else :class="props.class">{{ term.value }}</span>
+                    <span class="prezui-literal-content" v-if="isMarkdown" v-dompurify-html="renderedMarkdownContent"></span>
+                    <span class="prezui-literal-content" :class="htmlClass" v-else-if="isMathMl" v-dompurify-html:mathml="term.value"></span>
+                    <span class="prezui-literal-content" v-else-if="isHtml" :class="htmlClass" v-dompurify-html="term.value"></span>
+                    <span class="prezui-literal-content" v-else :class="props.class">{{ term.value }}</span>
                 </slot>
                 <slot v-if="!hideLanguage && term.language !== undefined" name="language" :term="term" :language="term.language">
-                    <div class="pt-1">
+                    <div class="pt-1 literal-language">
                         <Badge :value="term.language" />
                     </div>
                 </slot>
                 <slot v-if="!hideDataType && term.datatype !== undefined" name="datatype" :term="term" :datatype="term.datatype">
-                    <div class="pt-1">
+                    <div class="pt-1 literal-datatype flex-1 text-right">
                         <Tag severity="info">
                             <Term
                                 :term="term.datatype"
@@ -157,6 +157,14 @@ const htmlClass = 'no-tailwind' + (props.class ? ' ' + props.class : '');
 .prezui-text {
     display: flex;
     justify-content: space-between;
+}
+
+.prezui-text-long {
+  flex-wrap: wrap;
+}
+
+.prezui-text-long .prezui-literal-content {
+  flex-basis: 100%;
 }
 
 .no-tailwind, .no-tailwind * {
