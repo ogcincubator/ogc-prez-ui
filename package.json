@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
-    "dompurify": "^3.2.4",
+    "dompurify": "^3.2.5",
+    "esbuild": ">=0.25.1",
     "front-matter": "^4.0.2",
+    "jsdom": "^26.1.0",
     "marked": "^14.1.4",
-    "mermaid": "^11.4.1",
+    "mermaid": "^10.9.3",
     "n3": "^1.23.1",
     "node-polyfill-webpack-plugin": "^4.1.0",
     "nuxt": "^3.16.0",
@@ -23,8 +25,7 @@
     "tailwindcss": "^3.4.17",
     "v-network-graph": "0.9.16",
     "vue": "latest",
-    "vue-dompurify-html": "^5.2.0",
-    "esbuild": ">=0.25.1",
+    "vue-dompurify-html-ssr": "^5.2.2",
     "webpack": ">=5.94.0"
   },
   "devDependencies": {
@@ -32,9 +33,9 @@
     "@primevue/nuxt-module": "^4.2.5",
     "@types/dompurify": "^3.2.0",
     "dotenv-cli": "^7.4.4",
+    "esbuild": ">=0.25.1",
     "sass-embedded": "^1.85.0",
     "typescript": "^5.7.3",
-    "esbuild": ">=0.25.1",
     "webpack": ">=5.94.0"
   },
   "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276"
