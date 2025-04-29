@@ -8,7 +8,11 @@ const {getPageUrl, navigateToPage, pagination} = usePageInfo();
 
 const urlPath = ref(getPageUrl());
 const {status, error, data} = useGetItem(runtimeConfig.public.prezApiEndpoint, urlPath);
-const isCatalog = computed(() => data.value?.data.rdfTypes?.find(n => n.value == 'http://www.w3.org/ns/dcat#Catalog'));
+const showMemberListTypes = [
+  'http://www.w3.org/ns/dcat#Catalog',
+  'http://www.w3.org/2004/02/skos/core#Collection',
+];
+const showMemberList = computed(() => data.value?.data.rdfTypes?.find(n => showMemberListTypes.includes(n.value)));
 const membersUrl = computed(() => {
   const baseMembersUrl = data.value?.data?.members?.value;
   return baseMembersUrl ? baseMembersUrl + getPageUrl().replace(/^[^?]+/, '') : '';
@@ -28,7 +32,7 @@ watch(membersUrl, () => {
 </script>
 <template>
   <ItemPage>
-    <template #item-members v-if="isCatalog && membersData?.data">
+    <template #item-members v-if="showMemberList && membersData?.data">
       <div class="pt-4">
         <h2 class="font-semibold">Collections in {{ data?.data?.label?.value || data!.data.value }}</h2>
         <ItemList :list="membersData.data" :key="membersData"/>
