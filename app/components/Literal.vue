@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { type PrezLiteral, SYSTEM_PREDICATES, treatAsHtml, treatAsMarkdown } from '@/base/lib';
-import DOMPurify from 'dompurify';
 import { buildVueDompurifyHTMLDirective } from "vue-dompurify-html";
 import { marked } from 'marked';
 import mermaid from 'mermaid';
@@ -14,7 +13,6 @@ interface Props {
     variant?: 'item-table' | 'item-list' | 'item-header' | 'search-results' | 'item-profiles';
 }
 
-const sanitizedHtml = computed(() => DOMPurify.sanitize(props.term.value));
 const props = defineProps<Props>();
 
 // test cases
@@ -134,7 +132,7 @@ const htmlClass = 'no-tailwind' + (props.class ? ' ' + props.class : '');
             <slot v-if="props?.term?.value" name="text" :term="term" :text="term.value">
                 <span v-if="isMarkdown" v-html="renderedMarkdownContent"></span>
                 <span :class="htmlClass" v-else-if="isMathMl" v-dompurify-mathml="term.value"></span>
-                <span v-else-if="isHtml" :class="htmlClass" v-html="sanitizedHtml"></span>
+                <span v-else-if="isHtml" :class="htmlClass" v-dompurify-html="term.value"></span>
                 <span v-else :class="props.class">{{ term.value }}</span>
             </slot>
         </template>
