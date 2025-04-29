@@ -10,13 +10,13 @@ RUN apk update && apk add git && npm i -g pnpm && \
 
 WORKDIR /prez-ui
 
-RUN pnpm i
+RUN pnpm i --strict-peer-dependencies=false
 
 COPY . /ogc-prez-ui/
 
 WORKDIR /ogc-prez-ui/
 
-RUN PREZ_CORE_EXTENDS= PREZ_LAYER_EXTENDS=/prez-ui/packages/core pnpm i
+RUN PREZ_CORE_EXTENDS= PREZ_LAYER_EXTENDS=/prez-ui/packages/core pnpm i --strict-peer-dependencies=false
 
 WORKDIR /prez-ui/packages/core
 
