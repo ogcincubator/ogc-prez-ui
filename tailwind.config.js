@@ -1,10 +1,17 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                // any Tailwind CSS variable overrides you've defined in tailwind.css go here
-            },
-        },
+  theme: {
+    extend: {
+      colors: {
+        'ogc-blue': '#0580da',
+        'ogc-dark-blue': '#071F51',
+        'ogc-light-blue': '#00B1FF',
+      },
     },
+    fontFamily: {
+      sans: ['Noto Sans', ...defaultTheme.fontFamily.sans],
+    },
+  },
 }
