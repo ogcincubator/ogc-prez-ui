@@ -1,5 +1,10 @@
 export default defineAppConfig({
-    // nav menu, name substitutions, breadcrumbs prepend & pagination config goes here
+    ogcMenu: [
+        {"label": "Home", "url": "/"},
+        {"label": "Browse", "url": "/catalogs"},
+        {"label": "Search", "url": "/search"},
+        {"label": "About", "url": "/about"},
+      ],
 });
 
 declare module '@nuxt/schema' {
