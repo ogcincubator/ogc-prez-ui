@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import { type PrezFocusNode } from 'prez-lib';
-import { Table, TableBody, ItemTableRow,type ItemTableProps } from 'prez-components';
+import { ItemTableRow ,type ItemTableProps } from 'prez-components';
+import { Table, TableBody } from '@/components/ui/table';
 
-const props = withDefaults(defineProps<ItemTableProps>(), {
-    _components: () => {
-        return {
-            itemTableRow: ItemTableRow,
-        }
-    }
-});
+const props = defineProps<ItemTableProps>();
 const term = props.term as PrezFocusNode;
+
+const runtimeConfig = useRuntimeConfig();
 
 // const fieldNames = Object.keys(term.properties || {});
 
@@ -27,7 +24,10 @@ const hidePredicates = [
     'http://www.opengis.net/ogc-na#targetGraph',
 ];
 const filteredFields = computed(() => {
-  return Object.values(term.properties).value.filter(f => {
+  if (!term.properties) {
+    return [];
+  }
+  return Object.values(term.properties).filter(f => {
     if (hidePredicates.includes(f.predicate.value)) {
       return false;
     }
@@ -43,14 +43,14 @@ const filteredFields = computed(() => {
     <!-- ItemTable -->
     <Table v-if="term?.properties" class="item-table">
         <TableBody role="rowgroup">
-            <component :is="props._components.itemTableRow" v-for="(fieldProp, index) in filteredFields"
+            <component :is="ItemTableRow" v-for="(fieldProp, index) in filteredFields"
                 :key="fieldProp?.predicate.value"
                 :index="index"
                 :term="term"
                 :objects="fieldProp ? fieldProp.objects : []"
                 :predicate="fieldProp!.predicate"
-                :renderHtml="props.renderHtml"
-                :renderMarkdown="props.renderMarkdown"
+                :renderHtml="!!runtimeConfig.public.prezAutoDetectHtml"
+                :renderMarkdown="!!runtimeConfig.public.prezAutoDetectMarkdown"
             />
         </TableBody>
     </Table>
