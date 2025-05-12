@@ -9,6 +9,7 @@ const term = props.term as PrezLiteral;
 const isMathMl = term.datatype?.value == SYSTEM_PREDICATES.xmlString && term.value.startsWith('<math ');
 
 </script>
+
 <template>
   <Literal v-bind="props">
     <template #text="slotProps">
@@ -16,3 +17,18 @@ const isMathMl = term.datatype?.value == SYSTEM_PREDICATES.xmlString && term.val
     </template>
   </Literal>
 </template>
+
+<style>
+.prezui-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prezui-text {
+  flex-wrap: wrap;
+}
+
+.prezui-text > span:first-child {
+  flex-basis: 100%;
+}
+</style>
