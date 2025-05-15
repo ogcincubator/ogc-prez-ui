@@ -31,6 +31,34 @@ const hideSingleObjectPredicates = [
 const hidePredicates = [
     'http://www.opengis.net/ogc-na#targetGraph',
 ];
+const hidePredicatesForClass: Record<string, string[]> = {
+    'http://www.w3.org/ns/dcat#TopCatalog': [
+        'http://purl.org/dc/terms/hasPart',
+    ],
+};
+
+const propertiesFilter = ([propertyUri, value]: [string, PrezProperty]) => {
+  if (hidePredicates.includes(propertyUri)) {
+    return false;
+  }
+  if (value.objects.length === 1 && hideSingleObjectPredicates.includes(propertyUri)) {
+    return false;
+  }
+  if (term?.rdfTypes?.length) {
+    for (const rdfType of term.rdfTypes) {
+      const hidePredicatesForType = hidePredicatesForClass[rdfType.value];
+      if (hidePredicatesForType?.includes?.(propertyUri)) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+const filteredProperties = computed(() => Object.fromEntries(
+  Object.entries(term.properties).filter(propertiesFilter)
+));
+
 const filteredFields = computed(() => {
   return fields.value.filter(f => {
     if (hidePredicates.includes(f.predicate.value)) {
@@ -39,35 +67,26 @@ const filteredFields = computed(() => {
     if (f.objects.length === 1 && hideSingleObjectPredicates.includes(f.predicate.value)) {
       return false;
     }
+    if (term?.rdfTypes?.length) {
+      for (const rdfType of term.rdfTypes) {
+        const hidePredicatesForType = hidePredicatesForClass[rdfType.value];
+        if (hidePredicatesForType?.includes?.(f.predicate.value)) {
+          return false;
+        }
+      }
+    }
     return true;
   });
 });
 
+const newProps = computed(() => ({
+    term: {
+      ...props.term,
+      properties: filteredProperties.value,
+    }
+}));
 </script>
 <template>
-  <ItemTable v-bind="props">
-    <!-- ItemTable -->
-    <div v-if="term?.properties">
-      <DataTable :value="fields" striped-rows>
-        <template #default>
-          <table class="p-datatable-table">
-            <thead class="p-datatable-thead" role="rowgroup" data-pc-section="thead" style="position: sticky">
-              <tr>
-                <th colspan="2" class="p-datatable-header-cell"></th>
-              </tr>
-            </thead>
-            <tbody class="p-datatable-tbody" role="rowgroup" data-pc-section="tbody">
-              <ItemTableRow v-for="(fieldProp, index) in filteredFields"
-                            :key="fieldProp?.predicate.value"
-                            :index="index"
-                            :term="term"
-                            :objects="fieldProp ? fieldProp.objects : []"
-                            :predicate="fieldProp!.predicate"
-              />
-            </tbody>
-          </table>
-        </template>
-      </DataTable>
-    </div>
+  <ItemTable v-bind="newProps">
   </ItemTable>
 </template>
