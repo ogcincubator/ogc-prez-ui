@@ -7,14 +7,16 @@ const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const {getPageUrl, navigateToPage, pagination} = usePageInfo();
 
-const NON_MEMBER_CLASSES = [
-  'http://www.w3.org/2004/02/skos/core#ConceptScheme',
-  'http://www.w3.org/2004/02/skos/core#Concept',
+const SHOW_MEMBER_LIST_CLASSES = [
+  'http://www.w3.org/ns/dcat#Catalog',
+  'http://www.w3.org/ns/dcat#TopCatalog',
+  'http://www.w3.org/2004/02/skos/core#Collection',
+  'http://www.w3.org/2002/07/owl#Ontology',
 ]
 
 const urlPath = ref(getPageUrl());
 const {status, error, data} = useGetItem(runtimeConfig.public.prezApiEndpoint, urlPath);
-const showMembersTable = computed(() => !data.value?.data.rdfTypes?.find(n => NON_MEMBER_CLASSES.includes(n.value)));
+const showMembersTable = computed(() => data.value?.data.rdfTypes?.find(n => SHOW_MEMBER_LIST_CLASSES.includes(n.value)));
 const membersUrl = computed(() => {
   const baseMembersUrl = data.value?.data?.members?.value;
   return baseMembersUrl ? baseMembersUrl + getPageUrl().replace(/^[^?]+/, '') : '';
@@ -37,7 +39,7 @@ watch(membersUrl, () => {
 <template>
   <ItemPage>
     <template #item-members v-if="!!membersUrl && showMembersTable">
-      <h2 class="font-semibold pt-2">Collections in {{ data?.data?.label?.value || data!.data.value }}</h2>
+      <h2 class="font-semibold pt-2">Members of {{ data?.data?.label?.value || data!.data.value }}</h2>
       <div v-if="membersData?.data">
         <ItemList :list="membersData.data" :key="membersData"/>
         <Paginator
