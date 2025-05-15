@@ -6,9 +6,13 @@ const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const {getPageUrl, navigateToPage, pagination} = usePageInfo();
 
+const NON_MEMBER_CLASSES = [
+  'http://www.w3.org/2004/02/skos/core#ConceptScheme',
+]
+
 const urlPath = ref(getPageUrl());
 const {status, error, data} = useGetItem(runtimeConfig.public.prezApiEndpoint, urlPath);
-const isCatalog = computed(() => data.value?.data.rdfTypes?.find(n => n.value == 'http://www.w3.org/ns/dcat#Catalog'));
+const isCatalog = computed(() => !data.value?.data.rdfTypes?.find(n => NON_MEMBER_CLASSES.includes(n.value)));
 const membersUrl = computed(() => {
   const baseMembersUrl = data.value?.data?.members?.value;
   return baseMembersUrl ? baseMembersUrl + getPageUrl().replace(/^[^?]+/, '') : '';
