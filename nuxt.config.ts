@@ -35,7 +35,7 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
-    dynamicPagesPath: null,
+    dynamicPagesPath: undefined,
     public: {
       prezApiEndpoint: process.env.NUXT_PUBLIC_PREZ_API_ENDPOINT,
       appTitle: appTitle,
