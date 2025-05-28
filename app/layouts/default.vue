@@ -61,11 +61,11 @@ const menuOpen = ref(false);
       <div class="container mx-auto px-4 h-full flex justify-between items-center md:mb-4 order-2 md:order-1 mt-4 md:mt-0">
 
         <!-- Logo -->
-        <nuxt-link to="/" class="text-4xl flex flex-col md:flex-row flex-1 items-start md:items-center text-white">
+        <a to="https://www.ogc.org" class="text-4xl flex flex-col md:flex-row flex-1 items-start md:items-center text-white">
           <img class="h-[50px] hidden md:inline-block mr-3 filter brightness-0 invert md:inline-block" src="../../assets/img/ogc-logo.svg"
                alt="Open Geospatial Consortium">
           <span>{{ appTitle }}</span>
-        </nuxt-link>
+        </a>
 
       </div>
 
