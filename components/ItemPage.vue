@@ -30,16 +30,14 @@ const membersUrl = computed(() => {
 const membersData: ShallowRef<any> = shallowRef(null);
 const membersError: ShallowRef<Error | null | undefined> = shallowRef(null);
 watch(membersUrl, () => {
-  if (membersData || !membersUrl.value || !showMembersTable) {
+  if (membersData.value || !membersUrl.value || !showMembersTable) {
     return;
   }
   const {data, error} = useGetList(runtimeConfig.public.prezApiEndpoint, membersUrl);
   membersData.value = data.value;
 
   watch(data, v => membersData.value = v);
-  watch(error, v => {
-    membersError.value = v
-  });
+  watch(error, v => membersError.value = v);
 }, {
   immediate: true,
 });
@@ -49,7 +47,7 @@ watch(membersUrl, () => {
     <template #item-members v-if="!!membersUrl && showMembersTable && !membersError">
       <div class="mt-3">
         <h2 class="font-semibold pt-2">Collections in {{ data?.data?.label?.value || data!.data.value }}</h2>
-        <ItemList v-if="membersData.data" :list="membersData.data" :key="membersUrl"/>
+        <ItemList v-if="membersData?.data" :list="membersData.data" :key="membersUrl"/>
         <Loading v-else/>
 
         <slot name="pagination" :data="data" :pagination="pagination">
