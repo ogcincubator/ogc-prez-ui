@@ -50,3 +50,7 @@
         @apply underline decoration-dotted;
     }
 }
+
+.breadcrumbs > ol {
+    list-style: none;
+}
