@@ -8,6 +8,8 @@ module.exports = {
         'ogc-blue': '#0580da',
         'ogc-dark-blue': '#071F51',
         'ogc-light-blue': '#00B1FF',
+        'primary': '#0580da',
+        'ring': '#0580da',
       },
     },
     fontFamily: {
