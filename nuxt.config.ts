@@ -37,6 +37,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appTitle: appTitle,
+      staticPagesGraphURI: "urn:prez:static-pages",
     },
   },
 });
