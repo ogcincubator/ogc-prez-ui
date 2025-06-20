@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {useStaticPages} from "~/composables/useStaticPages";
+
 const props = defineProps<{ sidepanel?: boolean, contentonly?: boolean }>();
 const appConfig = useAppConfig();
 const runtimeConfig = useRuntimeConfig();
@@ -29,24 +31,25 @@ const socialLinks = [
   {href: 'https://ogcpublic.slack.com/', img: 'slack.svg', alt: 'Slack'},
 ];
 
-// const dynamicPages = toValue(useDynamicPages());
 const fullMenu = computed(() => {
-// if (!dynamicPages.length) {
+  const staticPages = useStaticPages().value;
+  if (!staticPages.length) {
     return menu;
-  // }
-  // const items = menu.map(m => ({label: dynamicPages.find(p => p.path === m.url)?.title || m.label, url: m.url}));
-  // for (const page of dynamicPages) {
-  //   if (page.navigationMenu === 'main' && !items.find(i => i.url === page.path)) {
-  //     items.push({label: page.title, url: page.path});
-  //   }
-  // }
-  // return items;
+  }
+  const items = menu.map(m => ({label: staticPages.find(p => p.path === m.url)?.title || m.label, url: m.url}));
+  for (const page of staticPages) {
+    if (page.navigationMenu === 'main' && !items.find(i => i.url === page.path)) {
+      items.push({label: page.title, url: page.path});
+    }
+  }
+  return items;
 });
 const topMenu = computed(() => {
-//  if (!dynamicPages.length) {
+  const staticPages = useStaticPages().value;
+  if (!staticPages.length) {
     return [];
-//  }
-//  return dynamicPages.filter(p => p.navigationMenu === 'top');
+  }
+  return staticPages.filter(p => p.navigationMenu === 'top');
 });
 
 const year = new Date().getFullYear();
@@ -96,12 +99,12 @@ const menuOpen = ref(false);
             </svg>
           </nuxt-link>
           <span class="flex-1"></span>
-<!--          <nuxt-link-->
-<!--              v-for="page of topMenu"-->
-<!--              :to="page.path"-->
-<!--              class="text-ogc-dark-blue hover:text-ogc-blue after:content-[''] after:absolute transition-colors">-->
-<!--            {{ page.title }}-->
-<!--          </nuxt-link>-->
+          <nuxt-link
+              v-for="page of topMenu"
+              :to="page.path"
+              class="text-ogc-dark-blue hover:text-ogc-blue after:content-[''] after:absolute transition-colors">
+            {{ page.title }}
+          </nuxt-link>
           <a href="#" @click.prevent="menuOpen = !menuOpen" class="md:hidden">
             <i
               class="pi text-ogc-dark-blue text-2xl"

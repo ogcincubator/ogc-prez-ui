@@ -1,17 +1,18 @@
-import {apiGet} from "prez-lib";
 import type {StaticPageAttributes} from "~/lib/staticPages";
 import StaticPage from "~/components/staticPages/StaticPage.vue";
 import {useSparqlSelect} from "~/composables/useSparql";
+import {useStaticPages} from "~/composables/useStaticPages";
 
 const GET_PAGES_QUERY = `
 PREFIX prez: <https://prez.dev/>
 PREFIX dct: <http://purl.org/dc/terms/>
-SELECT DISTINCT ?title ?path ?toc WHERE {
+SELECT DISTINCT ?title ?path ?toc ?navigationMenu WHERE {
   GRAPH <__GRAPH__> {
     ?page a prez:Page ;
       dct:title ?title ;
       prez:path ?path .
     OPTIONAL { ?page prez:toc ?toc }
+    OPTIONAL { ?page prez:navigationMenu ?navigationMenu }
   }
 }`;
 
@@ -32,6 +33,7 @@ export default defineNuxtPlugin({
         title: binding.title.value,
         path: binding.path.value,
         toc: binding?.toc?.value === "true",
+        navigationMenu: binding?.navigationMenu?.value,
       }));
 
       const router = useRouter();
@@ -51,6 +53,7 @@ export default defineNuxtPlugin({
             },
           });
         });
+        useStaticPages().value = pages;
       }
 
     } catch (e) {

@@ -2,6 +2,7 @@ export interface PublicStaticPageAttributes {
   readonly title: string;
   path: string;
   readonly toc?: boolean;
+  navigationMenu?: string;
   [otherOptions: string]: unknown;
 }
 
