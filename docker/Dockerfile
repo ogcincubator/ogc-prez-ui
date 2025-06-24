@@ -5,18 +5,15 @@ LABEL org.opencontainers.image.authors="avillar@ogc.org,mjahn@ogc.org"
 ARG NUXT_PUBLIC_PREZ_API_ENDPOINT=@@NUXT_PUBLIC_PREZ_API_ENDPOINT@@
 ARG NUXT_PUBLIC_APP_TITLE=@@NUXT_PUBLIC_APP_TITLE@@
 ARG NUXT_APP_BASE_URL=/
-ENV PNPM_HOME="/pnpm"
-ENV PATH=/app/node_modules/.bin:$PNPM_HOME:$PATH
-
-RUN npm i -g pnpm
+ENV PATH=/app/node_modules/.bin:$PATH
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --strict-peer-dependencies=false --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY . .
-RUN pnpm dotenv -e .env -- nuxi generate
+RUN nuxi generate
 
 FROM nginx:stable-alpine AS prod
 
