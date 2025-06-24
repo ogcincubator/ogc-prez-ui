@@ -1,0 +1,68 @@
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    p {
+        @apply mb-2;
+    }
+
+    h1, h2, h3 {
+        color: theme('colors.ogc-dark-blue');
+        @apply mb-[0.7rem] mt-[1rem];
+
+        &:first-child {
+            @apply mt-0;
+        }
+    }
+
+    h1 {
+        @apply text-4xl;
+    }
+
+    h2 {
+        @apply text-3xl;
+    }
+
+    h3 {
+        @apply text-2xl;
+    }
+
+    ul, ol {
+        @apply list-outside pl-4 ml-4 mb-2;
+
+        ul, ol {
+            @apply mb-0;
+        }
+    }
+
+    ul {
+        @apply list-disc;
+    }
+
+    ol {
+        @apply list-decimal;
+    }
+
+    #main-content a {
+        @apply hover:underline hover:decoration-dotted text-ogc-blue hover:text-ogc-light-blue;
+    }
+
+
+}
+
+.breadcrumbs > ol {
+    list-style: none;
+}
+
+.item-profiles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#main-content .paginator [data-selected=true] {
+  color: white;
+}
