@@ -1,17 +1,16 @@
-# Prez UI v4 Theme Starter Template
-This project was bootstrapped by `create-prez-app`.
+# OGC Prez UI layer
 
 ## Quick start
 In the project root directory, install with your NPM package manager of choice (we recommend [pnpm](https://pnpm.io)):
 
 ```bash
-npm install
+pnpm install
 ```
 
 Then preview your theme by running:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Configuration

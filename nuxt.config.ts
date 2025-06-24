@@ -40,4 +40,10 @@ export default defineNuxtConfig({
       staticPagesGraphURI: "urn:prez:static-pages",
     },
   },
+  ssr: false,
+  nitro: {
+    prerender: {
+      failOnError: false,
+    },
+  },
 });
