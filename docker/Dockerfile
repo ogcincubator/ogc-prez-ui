@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.authors="avillar@ogc.org,mjahn@ogc.org"
 
 ARG NUXT_PUBLIC_PREZ_API_ENDPOINT=@@NUXT_PUBLIC_PREZ_API_ENDPOINT@@
 ARG NUXT_PUBLIC_APP_TITLE=@@NUXT_PUBLIC_APP_TITLE@@
-ARG NUXT_APP_BASE_URL=/
+ARG NUXT_APP_BASE_URL=/base-url-oqui9inohyoh2Ouqu1ooThohnaobeeSa3aiNaeP9Aiv3ochaiXaelo5oof1Noh3u
 ENV PATH=/app/node_modules/.bin:$PATH
 
 WORKDIR /app
@@ -19,7 +19,7 @@ FROM nginx:stable-alpine AS prod
 
 ENV NUXT_PUBLIC_PREZ_API_ENDPOINT=http://localhost:45081
 ENV NUXT_PUBLIC_APP_TITLE="OGC RAINBOW"
-ENV NUXT_APP_BASE_URL=/
+ENV NUXT_APP_BASE_URL=
 
 RUN apk update && apk add bash
 
