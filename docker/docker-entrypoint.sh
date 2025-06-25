@@ -7,8 +7,8 @@ for V in NUXT_PUBLIC_PREZ_API_ENDPOINT NUXT_PUBLIC_APP_TITLE ; do
 done
 
 rm -rf /usr/share/nginx/html/*
-mkdir -p /usr/share/nginx/html"${APP_SERVE_PATH}"
-cp -R /app/* /usr/share/nginx/html"${APP_SERVE_PATH}"
+mkdir -p /usr/share/nginx/html"${NUXT_APP_BASE_URL}"
+cp -R /app/* /usr/share/nginx/html"${NUXT_APP_BASE_URL}"
 
 envsubst '${NUXT_APP_BASE_URL}' < /etc/nginx/nginx.conf.tpl > /etc/nginx/nginx.conf
 echo "nginx running on port 8080"
