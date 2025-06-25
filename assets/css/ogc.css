@@ -46,7 +46,7 @@
         @apply list-decimal;
     }
 
-    #main-content a {
+    a:not(header a):not(nav.main-nav a):not(footer a):not(.btn) {
         @apply hover:underline hover:decoration-dotted text-ogc-blue hover:text-ogc-light-blue;
     }
 

@@ -10,6 +10,7 @@ module.exports = {
         'ogc-light-blue': '#00B1FF',
         'primary': '#0580da',
         'ring': '#0580da',
+        'link': '#0580da',
       },
     },
     fontFamily: {
