@@ -105,11 +105,11 @@ const menuOpen = ref(false);
               class="text-ogc-dark-blue hover:text-ogc-blue after:content-[''] after:absolute transition-colors">
             {{ page.title }}
           </nuxt-link>
-          <a href="#" @click.prevent="menuOpen = !menuOpen" class="md:hidden">
-            <i
-              class="pi text-ogc-dark-blue text-2xl"
-              :class="{ 'pi-bars': !menuOpen, 'pi-times': menuOpen }"
-            ></i>
+          <a href="#" @click.prevent="menuOpen = !menuOpen"
+             class="md:hidden"
+             id="nav-toggle"
+             :class="{ 'show-nav': !menuOpen, 'hide-nav': menuOpen }"
+             :title="menuOpen ? 'Hide menu' : 'Show menu'">
           </a>
         </nav>
       </div>
@@ -213,4 +213,19 @@ footer {
     }
   }
 }
+
+#nav-toggle {
+  background: center no-repeat;
+  background-size: cover;
+  display: block;
+  width: 1em;
+
+  &.show-nav {
+    background-image: url('../assets/img/menu-show.svg')
+  }
+  &.hide-nav {
+    background-image: url('../assets/img/menu-hide.svg')
+  }
+}
+
 </style>
