@@ -9,11 +9,7 @@ const appTitle = process.env.NUXT_PUBLIC_APP_TITLE || 'OGC RAINBOW';
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: {enabled: true},
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "shadcn-nuxt",
-    "@nuxtjs/color-mode",
-  ],
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode", "nuxt-gtag"],
   extends: [
     "prez-ui",
   ],
@@ -45,5 +41,9 @@ export default defineNuxtConfig({
     prerender: {
       failOnError: false,
     },
+  },
+  gtag: {
+    enabled: !!process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID,
+    id: process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID || '',
   },
 });

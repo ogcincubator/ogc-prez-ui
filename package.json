@@ -22,6 +22,7 @@
     "isomorphic-dompurify": "^2.24.0",
     "lucide-vue-next": "^0.483.0",
     "nuxt": "^3.16.1",
+    "nuxt-gtag": "^4.0.0",
     "radix-vue": "^1.9.10",
     "shadcn-nuxt": "^0.11.4",
     "tailwind-merge": "^2.5.5",
@@ -30,12 +31,12 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "prez-ui": "^4.1.2",
+    "dotenv-cli": "^8.0.0",
     "prez-components": "^4.1.2",
     "prez-lib": "^4.1.2",
+    "prez-ui": "^4.1.2",
     "sass-embedded": "^1.89.2",
-    "typescript": "^5.8.2",
-    "dotenv-cli": "^8.0.0"
+    "typescript": "^5.8.2"
   },
   "overrides": {
     "@triply/yasgui": {
