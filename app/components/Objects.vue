@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Objects from 'prez-ui/components/Objects.vue';
+import Objects from 'prez-ui/app/components/Objects.vue';
 import {type PrezNode, type PrezTerm} from 'prez-lib';
 
 interface Props {

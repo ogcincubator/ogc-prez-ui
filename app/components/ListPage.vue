@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListPage from 'prez-ui/components/ListPage.vue';
+import ListPage from 'prez-ui/app/components/ListPage.vue';
 import {type PrezDataList} from 'prez-lib';
 
 const getHeader = (data: PrezDataList | undefined) => {

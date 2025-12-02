@@ -21,9 +21,9 @@ export default defineNuxtConfig({
       include: ["@triply/yasgui"],
     },
   },
-  css: [
-    join(currentDir, './assets/css/ogc.css'),
-  ],
+  // css: [
+  //   join(currentDir, './app/assets/css/ogc.css'),
+  // ],
   app: {
     head: {
       title: appTitle,

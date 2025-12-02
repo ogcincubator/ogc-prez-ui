@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ItemPage from 'prez-ui/components/ItemPage.vue';
-import ItemList from 'prez-ui/components/ItemList.vue';
+import ItemPage from 'prez-ui/app/components/ItemPage.vue';
+import ItemList from 'prez-ui/app/components/ItemList.vue';
 import type {ShallowRef} from "@vue/reactivity";
 
 const runtimeConfig = useRuntimeConfig();

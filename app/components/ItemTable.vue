@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ItemTable from 'prez-ui/components/ItemTable.vue';
+import ItemTable from 'prez-ui/app/components/ItemTable.vue';
 import type {ItemTableProps} from "prez-components";
 import {type PrezFocusNode} from 'prez-lib';
 

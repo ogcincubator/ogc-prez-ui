@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Literal from 'prez-ui/components/Literal.vue';
+import Literal from 'prez-ui/app/components/Literal.vue';
 import type {LiteralProps} from "prez-components";
 import {type PrezLiteral, SYSTEM_PREDICATES} from "prez-lib";
 

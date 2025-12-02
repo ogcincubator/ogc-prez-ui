@@ -55,6 +55,12 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
     /* any new tailwind variables you declare go here, following the above syntax. Colours are prefixed with --color-* */
+    --color-ogc-blue: #0580da;
+    --color-ogc-dark-blue: #071F51;
+    --color-ogc-light-blue: #00B1FF;
+    --color-primary: #0580da;
+    --color-ring: #0580da;
+    --color-link: #0580da;
 }
 
 @layer base {
