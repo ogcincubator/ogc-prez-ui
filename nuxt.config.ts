@@ -1,3 +1,5 @@
+import tailwindcss from "@tailwindcss/vite";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import {dirname, join} from "path";
 import {fileURLToPath} from "url";
@@ -9,11 +11,12 @@ const appTitle = process.env.NUXT_PUBLIC_APP_TITLE || 'OGC RAINBOW';
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: {enabled: true},
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode", "nuxt-gtag"],
+  modules: [ "shadcn-nuxt", "@nuxtjs/color-mode", "nuxt-gtag"],
   extends: [
     "prez-ui",
   ],
   vite: {
+        plugins: [tailwindcss()],
     optimizeDeps: {
       include: ["@triply/yasgui"],
     },
@@ -46,4 +49,9 @@ export default defineNuxtConfig({
     enabled: !!process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID,
     id: process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID || '',
   },
+    shadcn: {
+        prefix: "",
+        componentDir: "./app/components/ui"
+    },
+
 });
