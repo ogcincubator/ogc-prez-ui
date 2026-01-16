@@ -46,7 +46,7 @@ watch(membersUrl, () => {
   <ItemPage>
     <template #item-members v-if="!!membersUrl && showMembersTable && !membersError">
       <div class="mt-3">
-        <h2 class="font-semibold pt-2">Collections in {{ data?.data?.label?.value || data!.data.value }}</h2>
+        <h2 class="font-semibold pt-2">Members of {{ data?.data?.label?.value || data!.data.value }}</h2>
         <ItemList v-if="membersData?.data" :list="membersData.data" :key="membersUrl"/>
         <Loading v-else/>
 

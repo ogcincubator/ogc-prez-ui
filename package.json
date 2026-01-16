@@ -35,9 +35,9 @@
   },
   "devDependencies": {
     "dotenv-cli": "^8.0.0",
-    "prez-components": "^4.2.0",
-    "prez-lib": "^4.2.0",
-    "prez-ui": "^4.2.0",
+    "prez-components": "^4.3.0",
+    "prez-lib": "^4.3.0",
+    "prez-ui": "^4.3.0",
     "sass-embedded": "^1.89.2",
     "typescript": "^5.8.2"
   },
