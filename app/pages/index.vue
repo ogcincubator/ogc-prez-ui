@@ -1,17 +1,19 @@
 <template>
   <NuxtLayout contentonly>
     <template #default>
-      <h1>Welcome to OGC RAINBOW</h1>
+      <h1 class="text-4xl pb-3 text-ogc-dark-blue">Welcome to the OGC Definitions Service</h1>
 
-      <h2>A trusted source for geospatial definitions, identifiers, and vocabularies</h2>
+      <h2 class="text-2xl pb-3 text-ogc-dark-blue">A trusted source for geospatial definitions, identifiers, and vocabularies</h2>
 
       <p>
-        OGC RAINBOW is the Open Geospatial Consortium’s linked data registry, providing stable, unique web
+        Part of the OGC RAINBOW, the OGC Definitions Service is the Open Geospatial Consortium’s linked
+        data registry, providing stable, unique web
         identifiers (IRIs/URIs) for a wide range of official OGC resources.
         These identifiers are assigned and maintained according to policies set by the OGC Naming Authority.
       </p>
+
       <p>
-        At its core, RAINBOW is powered by a flexible, extensible knowledge graph. It supports the registration of
+        At its core, the Definitions Service is powered by a flexible, extensible knowledge graph. It supports the registration of
         new terms and enhances cross-linkages between definitions over time—ensuring geospatial concepts remain
         connected, discoverable, and reusable.
       </p>
@@ -27,7 +29,7 @@
         Each Concept may have multiple profile views, helping users find exactly the information they need.
       </p>
       <p>
-        For a deeper dive into how RAINBOW works and how to use it, visit the
+        For a deeper dive into how the OGC Definitions Service works and how to use it, visit the
         <a href="https://ogcincubator.github.io/rainbow-docs/about.html">About page</a>.
       </p>
     </template>
@@ -35,3 +37,8 @@
 </template>
 <script setup lang="ts">
 </script>
+<style lang="scss">
+p, ol, ul {
+  margin-bottom: 0.75rem;
+}
+</style>
