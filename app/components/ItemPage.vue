@@ -29,6 +29,7 @@ const membersUrl = computed(() => {
 // Workaround for when membersUrl is not yet ready and thus null
 const membersData: ShallowRef<any> = shallowRef(null);
 const membersError: ShallowRef<Error | null | undefined> = shallowRef(null);
+const membersDataKey = ref(0);
 watch(membersUrl, () => {
   if (membersData.value || !membersUrl.value || !showMembersTable) {
     return;
@@ -36,7 +37,7 @@ watch(membersUrl, () => {
   const {data, error} = useGetList(runtimeConfig.public.prezApiEndpoint, membersUrl);
   membersData.value = data.value;
 
-  watch(data, v => membersData.value = v);
+  watch(data, v => { membersData.value = v; membersDataKey.value++; });
   watch(error, v => membersError.value = v);
 }, {
   immediate: true,
@@ -47,7 +48,7 @@ watch(membersUrl, () => {
     <template #item-members v-if="!!membersUrl && showMembersTable && !membersError">
       <div class="mt-3">
         <h2 class="font-semibold pt-2">Members of {{ data?.data?.label?.value || data!.data.value }}</h2>
-        <ItemList v-if="membersData?.data" :list="membersData.data" :key="membersUrl"/>
+        <ItemList v-if="membersData?.data" :list="membersData.data" :key="membersDataKey"/>
         <Loading v-else/>
 
         <slot name="pagination" :data="data" :pagination="pagination">
