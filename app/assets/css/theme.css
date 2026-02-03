@@ -1,1 +1,5 @@
 /* other CSS for your theme goes here */
+
+[data-slot=table-cell] {
+    white-space: normal !important;
+}
