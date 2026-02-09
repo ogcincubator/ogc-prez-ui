@@ -2,7 +2,7 @@
 import ItemPage from 'prez-ui/app/components/ItemPage.vue';
 import ItemList from 'prez-ui/app/components/ItemList.vue';
 import type {ShallowRef} from "@vue/reactivity";
-import MeasureFormula from "~/components/widgets/MeasureFormula.vue";
+import MeasureWidget from "~/components/widgets/MeasureWidget.vue";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
@@ -47,7 +47,7 @@ watch(membersUrl, () => {
 <template>
   <ItemPage>
     <template #item-top>
-      <MeasureFormula :data="data" class="mx-2 pb-3"></MeasureFormula>
+      <MeasureWidget :data="data" class="mx-2 pb-3"></MeasureWidget>
     </template>
     <template #item-members v-if="!!membersUrl && showMembersTable && !membersError">
       <div class="mt-3">
