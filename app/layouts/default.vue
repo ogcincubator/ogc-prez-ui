@@ -187,7 +187,7 @@ const menuOpen = ref(false);
           Copyright © {{ year }} Open Geospatial Consortium. All Rights Reserved.
         </div>
         <div class="powered-by py-1 md:py-0 text-center md:text-right">
-          The OGC RAINBOW is powered by <a class="font-bold" href="https://github.com/RDFLib/prez"
+          The OGC Definitions Service is powered by <a class="font-bold" href="https://github.com/RDFLib/prez"
                                            target="_blank">Prez</a>
         </div>
       </div>
