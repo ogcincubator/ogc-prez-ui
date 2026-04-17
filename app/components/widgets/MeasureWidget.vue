@@ -67,7 +67,6 @@ watch(descriptions, async () => {
   const q = QUERY.replaceAll('__SUBJECT__', measureUri);
   const bindings = (await useSparqlSelect(q))?.results?.bindings || [];
   const mdMap = new Map<string, MeasureDescription>();
-  console.log(bindings);
   bindings.forEach((binding: any) => {
     const uri = binding.desc.value;
     const formula: Formula = {
