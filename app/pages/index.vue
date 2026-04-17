@@ -2,7 +2,7 @@
   <NuxtLayout contentonly>
     <template #default>
       <h1 class="text-4xl pb-3 text-ogc-dark-blue">OGC Definitions Service</h1>
-      <h2 class="text-2xl pb-3 text-ogc-dark-blue mt-12">A trusted source for geospatial definitions, identifiers, and
+      <h2 class="text-2xl pb-3 text-ogc-dark-blue">A trusted source for geospatial definitions, identifiers, and
         vocabularies</h2>
 
       <p>
