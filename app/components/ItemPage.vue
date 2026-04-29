@@ -3,10 +3,13 @@ import ItemPage from 'prez-ui/app/components/ItemPage.vue';
 import ItemList from 'prez-ui/app/components/ItemList.vue';
 import type {ShallowRef} from "@vue/reactivity";
 import MeasureWidget from "~/components/widgets/MeasureWidget.vue";
+import ProvenanceWidget from "~/components/widgets/ProvenanceWidget.vue";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const {getPageUrl, pagination} = usePageInfo();
+
+const appConfig = useAppConfig();
 
 const SHOW_MEMBER_LIST_CLASSES = [
   'http://www.w3.org/ns/dcat#Catalog',
@@ -46,8 +49,16 @@ watch(membersUrl, () => {
 </script>
 <template>
   <ItemPage>
+    <template #breadcrumb>
+      <div :key="data?.parents.join()">
+          <ItemBreadcrumb v-if="data" :prepend="appConfig.breadcrumbPrepend" :name-substitutions="appConfig.nameSubstitutions" :parents="data.parents" />
+          <ItemBreadcrumb v-else-if="error" :custom-items="[{url: '/', label: 'Unable to load page'}]" />
+          <ItemBreadcrumb v-else :prepend="appConfig.breadcrumbPrepend" :custom-items="[{url: '#', label: '...'}]" />
+      </div>
+    </template>
     <template #item-top>
       <MeasureWidget :data="data" class="mx-2 pb-3"></MeasureWidget>
+      <ProvenanceWidget :data="data" class="mx-2 pb-3"></ProvenanceWidget>
     </template>
     <template #item-members v-if="!!membersUrl && showMembersTable && !membersError">
       <div class="mt-3">

@@ -34,6 +34,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@types/dagre": "^0.7.53",
     "dotenv-cli": "^8.0.0",
     "prez-components": "^4.3.0",
     "prez-lib": "^4.3.0",
