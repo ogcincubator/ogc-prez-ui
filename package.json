@@ -24,7 +24,7 @@
     "node-forge": ">=1.3.2",
     "nuxt": "^4.2.1",
     "nuxt-gtag": "^4.0.0",
-    "reka-ui": "^2.8.0",
+    "reka-ui": "^2.9.7",
     "shadcn-nuxt": "^2.4.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
