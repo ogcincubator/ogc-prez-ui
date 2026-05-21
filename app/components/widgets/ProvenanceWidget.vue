@@ -84,6 +84,7 @@ const props = defineProps({
 
 const graphData = ref<GraphData | null>(null);
 const graphHeight = ref(200);
+const zoomLevel = ref(1);
 
 const layoutNodes = () => {
   if (!graphData.value || !Object.keys(graphData.value.nodes).length) {
@@ -133,13 +134,15 @@ const layoutNodes = () => {
     positions.push({x, y});
   });
 
-  // Center vertically around y=0 and derive container height from content extent
+  // Center vertically around y=0 and derive container height from content extent.
+  // Shift nodes slightly down to compensate for edge labels rendered above the edge
+  // (node labels hang below, edge labels float above — the visual mass is below y=0).
   if (positions.length > 0) {
     const yMin = Math.min(...positions.map(p => p.y));
     const yMax = Math.max(...positions.map(p => p.y));
-    const yOffset = (yMin + yMax) / 2;
+    const yOffset = (yMin + yMax) / 2 - nodeSize * 2;
     Object.values(layouts.nodes).forEach(n => { n.y -= yOffset; });
-    graphHeight.value = Math.max(120, yMax - yMin + nodeSize * 8);
+    graphHeight.value = Math.max(200, yMax - yMin + nodeSize * 20);
   }
 };
 
@@ -147,6 +150,7 @@ const configs = reactive(
   vNG.defineConfigs({
     view: {
       autoPanAndZoomOnLoad: "fit-content",
+      fitContentMargin: "20%",
       onBeforeInitialDisplay: layoutNodes,
     },
     edge: {
@@ -180,6 +184,7 @@ const eventHandlers: vNG.EventHandlers = {
     const base = apiEndpoint.endsWith('/') ? apiEndpoint.slice(0, -1) : apiEndpoint;
     window.open(`${base}/object?uri=${encodeURIComponent(nodeUri)}`, '_blank');
   },
+  "view:zoom": (level) => { zoomLevel.value = level; },
 };
 
 watchEffect(async () => {
@@ -310,7 +315,7 @@ watchEffect(async () => {
       </template>
 
       <template #override-node-label="{ nodeId, x, y, config, textAnchor, dominantBaseline }">
-        <text :x="x" :y="y" :text-anchor="textAnchor" :dominant-baseline="dominantBaseline" :font-size="config.fontSize" style="cursor: pointer">
+        <text :x="x" :y="y" :text-anchor="textAnchor" :dominant-baseline="dominantBaseline" :font-size="config.fontSize / zoomLevel" style="cursor: pointer">
           <title>{{ graphData.nodes[nodeId]!.id }}</title>
           {{ graphData.nodes[nodeId]!.label }}
         </text>
