@@ -14,6 +14,7 @@ const isMathMl = term.datatype?.value == SYSTEM_PREDICATES.xmlString && term.val
   <Literal v-bind="props">
     <template #text="slotProps">
       <span v-if="isMathMl" v-dompurify-html:mathml="term.value"></span>
+      <slot v-else name="text" v-bind="slotProps" />
     </template>
   </Literal>
 </template>

@@ -5,6 +5,7 @@ import type {ShallowRef} from "@vue/reactivity";
 import MeasureWidget from "~/components/widgets/MeasureWidget.vue";
 import ProvenanceWidget from "~/components/widgets/ProvenanceWidget.vue";
 import DomainPropertiesWidget from "~/components/widgets/DomainPropertiesWidget.vue";
+import { filterBreadcrumbParents } from '~/lib/ogc/breadcrumb';
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
@@ -52,7 +53,7 @@ watch(membersUrl, () => {
   <ItemPage>
     <template #breadcrumb>
       <div :key="data?.parents.join()">
-          <ItemBreadcrumb v-if="data" :prepend="appConfig.breadcrumbPrepend" :name-substitutions="appConfig.nameSubstitutions" :parents="data.parents" />
+          <ItemBreadcrumb v-if="data" :prepend="appConfig.breadcrumbPrepend" :name-substitutions="appConfig.nameSubstitutions" :parents="filterBreadcrumbParents(data.parents)" />
           <ItemBreadcrumb v-else-if="error" :custom-items="[{url: '/', label: 'Unable to load page'}]" />
           <ItemBreadcrumb v-else :prepend="appConfig.breadcrumbPrepend" :custom-items="[{url: '#', label: '...'}]" />
       </div>

@@ -57,6 +57,10 @@
     list-style: none;
 }
 
+.breadcrumbs .item-link {
+    @apply text-ogc-blue;
+}
+
 .item-profiles ul {
   list-style: none;
   margin: 0;

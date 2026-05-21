@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ListPage from 'prez-ui/app/components/ListPage.vue';
 import {type PrezDataList} from 'prez-lib';
+import { filterBreadcrumbParents } from '~/lib/ogc/breadcrumb';
 
 const getHeader = (data: PrezDataList | undefined) => {
   console.log(data);
@@ -21,6 +22,12 @@ const getHeader = (data: PrezDataList | undefined) => {
 </script>
 <template>
   <ListPage>
+    <template #breadcrumb="{ data }">
+      <div :key="data?.parents.join()">
+        <ItemBreadcrumb v-if="data" :prepend="useAppConfig().breadcrumbPrepend || []" :name-substitutions="useAppConfig().nameSubstitutions" :parents="filterBreadcrumbParents(data.parents)" />
+        <ItemBreadcrumb v-else :prepend="useAppConfig().breadcrumbPrepend" :custom-items="[{ url: '#', label: '...' }]" />
+      </div>
+    </template>
     <template #header-text="{ data }">
       {{ getHeader(data) }}
     </template>
