@@ -6,7 +6,8 @@ import {type PrezLiteral, SYSTEM_PREDICATES} from "prez-lib";
 const props = defineProps<LiteralProps>();
 
 const term = props.term as PrezLiteral;
-const isMathMl = term.datatype?.value == SYSTEM_PREDICATES.xmlString && term.value.startsWith('<math ');
+const isMathMl = term.datatype?.value === 'http://www.w3.org/1998/Math/MathML'
+  || (term.datatype?.value === SYSTEM_PREDICATES.xmlString && term.value.startsWith('<math '));
 
 </script>
 
