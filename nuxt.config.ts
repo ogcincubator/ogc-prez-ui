@@ -16,9 +16,14 @@ export default defineNuxtConfig({
     "prez-ui",
   ],
   vite: {
-        plugins: [tailwindcss()],
+    plugins: [tailwindcss()],
     optimizeDeps: {
       include: ["@triply/yasgui"],
+    },
+    css: {
+      lightningcss: {
+        errorRecovery: true,
+      },
     },
   },
   // css: [
